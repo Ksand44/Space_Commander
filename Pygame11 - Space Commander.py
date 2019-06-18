@@ -1,4 +1,5 @@
 import pygame
+from pygame import Color
 from pathlib import Path
 
 from gamelib import sprites
@@ -39,6 +40,14 @@ class Game:
 		self.gameFolder = Path.cwd()
 		self.imgFolder = self.gameFolder.joinpath('img')
 		self.img = load.load_images(self.imgFolder)
+
+		# self.font = pygame.font.SysFont('consolas', 100)
+		# self.text_game_over = self.font.render("GAME OVER", True, Color("white"))
+		self.text_game_over = buttons.Text(self, "Game Over", self.MIDX, 120, 80)
+		self.text_title = buttons.Text(self, "Space Commander", self.MIDX, 120, 80)
+		self.text_title_shadow = buttons.Text(self, "Space Commander", self.MIDX - 2, 118, 80, Color("black"))
+		# for f in pygame.font.get_fonts():
+		# 	print(f)
 
 		# Create all sprite groups
 		self.all_sprites = pygame.sprite.Group()
@@ -144,6 +153,8 @@ class Game:
 
 		if self.game_state == "title":
 			self.pause_button_sprites.draw(win)
+			self.text_title.draw(win)
+			self.text_title_shadow.draw(win)
 		else:
 			self.all_sprites.draw(win)
 			self.gui_sprites.draw(win)
@@ -153,6 +164,7 @@ class Game:
 
 		if self.game_state == "game over":
 			self.pause_button_sprites.draw(win)
+			self.text_game_over.draw(win)
 
 		pygame.display.update()
 

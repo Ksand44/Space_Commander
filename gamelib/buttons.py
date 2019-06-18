@@ -1,4 +1,5 @@
 import pygame
+from pygame import Color
 
 class Button(pygame.sprite.Sprite):
 	def __init__(self, game, group, x, y, but, but_press, action=None):
@@ -33,3 +34,20 @@ class Button(pygame.sprite.Sprite):
 					self.action()
 		else:
 			self.image = self.but
+
+
+class Text(pygame.sprite.Sprite):
+	def __init__(self, game: object, text: str, x: int, y: int, size: int = 40, color = Color("white")):
+		pygame.sprite.Sprite.__init__(self)
+		self.game = game
+		self.text = str(text)
+		self.size = size
+		self.font = pygame.font.SysFont('futuralt', self.size, True)
+		self.color = color
+		self.image = self.font.render(self.text, False, self.color)
+
+		self.rect = self.image.get_rect()
+		self.rect.center = (x, y)
+
+	def draw(self, win):
+		win.blit(self.image, self.rect)
